@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * A user can borrow books
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function borrowed() {
+
+        return $this->hasMany(Book::class, 'borrowed_by');
+
+    }
+
 }

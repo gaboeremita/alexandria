@@ -11,8 +11,8 @@
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "mockery/mockery": "1.0.*",
+        "phpunit/phpunit": "7.1.*"
     },
     "autoload": {
         "classmap": [
@@ -25,7 +25,8 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": ["tests/utilities/functions.php"]
     },
     "scripts": {
         "post-root-package-install": [

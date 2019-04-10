@@ -11,6 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'BooksController@index');
+
+Auth::routes();
+
+Route::get('/home', 'BooksController@index')->name('home');
+
+Route::post('/books/{book}/borrow', 'BooksController@borrow');
+
+Route::get('/books/bookfeeder', 'BooksController@bookfeeder');
+
+Route::resource('/books', 'BooksController');
+
+Route::get('/users/{user}', 'UserController@show');
+
+Route::post('/users/return/{book}', 'UserController@returnBook');
+
+

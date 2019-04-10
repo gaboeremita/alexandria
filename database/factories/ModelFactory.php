@@ -11,8 +11,15 @@
 |
 */
 
+use App\Category;
+use App\User;
+use App\Book;
+use App\Author;
+use Faker\Generator;
+
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+
+$factory->define(User::class, function (Generator $faker) {
     static $password;
 
     return [
@@ -20,5 +27,49 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(Category::class, function (Generator $faker) {
+
+    $name = $faker->word;
+
+    return [
+        'name' => $name,
+        'description' => $faker->paragraph,
+        'img'  => "\\img\\placeholder-category.jpg",
+        'slug' => $name
+    ];
+
+});
+
+$factory->define(Author::class, function (Generator $faker) {
+
+    return [
+        'name' => $faker->name,
+    ];
+});
+
+$factory->define(Book::class, function (Generator $faker) {
+
+    $name = $faker->sentence(3);
+
+    return [
+        'title' => $name,
+        'description' => $faker->paragraph,
+        'slug' => $name,
+        'published' => $faker->date(),
+        'category_id' => function() {
+
+            return factory(Category::class)->create()->id;
+
+        },
+
+        'author_id' => function() {
+
+            return factory(Author::class)->create()->id;
+
+        }
+
     ];
 });
